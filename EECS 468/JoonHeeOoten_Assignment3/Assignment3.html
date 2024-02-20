@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3</title>
+</head>
+<body>
+    <h1>Results</h1>
+    
+    <p id="resultGroup1"></p>
+    <p id="resultGroup2"></p>
+    <p id="resultHas5"></p>
+    <p id="resultHas3"></p>
+    <p id="resultUnion"></p>
+    <p id="resultIntersection"></p>
+    <p id="resultDifference"></p>
+    <p id="resultDelete1"></p>
+    <p id="resultDelete2"></p>
+
+    <script>
+        class Group {
+            // Constructor for initializing an empty array
+            constructor() {
+                this.elements = [];
+            }
+            // Method to check if a value is present in the array.
+            has(value) {
+                for (var i = 0; i < this.elements.length; i++) {
+                    if (this.elements[i] === value) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            // Method to add a value to the array if it is not already present
+            add(value) {
+                if (!this.has(value)) {
+                    this.elements.push(value);
+                }
+            }
+            // Method to delete a value from the array if it exists
+            delete(value) {
+                // Find the index of the value in the array
+                const index = this.elements.indexOf(value);
+                // If the value is found, remove it from the array using splice
+                if (index !== -1) {
+                    this.elements.splice(index, 1);
+                }
+            }
+            // Method to create a union of two Group instances
+            union(group2) {
+                let newuGroup = new Group();
+                // Add elements from group1 in order
+                for (var i = 0; i < this.elements.length; i++) {
+                    newuGroup.add(this.elements[i]);
+                }
+                // Add elements from group2 that are not already in newuGroup
+                for (var i = 0; i < group2.elements.length; i++) {
+                    if (!newuGroup.has(group2.elements[i])) {
+                        newuGroup.add(group2.elements[i]);
+                    }
+                }
+                return newuGroup;
+            }
+
+            // Method to create an intersection of two Group instances
+            intersection(group2) {
+                let newiGroup = new Group();
+                for (var i = 0; i < this.elements.length; i++) {
+                    for (var j = 0; j < group2.elements.length; j++) {
+                        if (this.elements[i] === group2.elements[j]) {
+                            newiGroup.add(this.elements[i]);
+                        }
+                    }
+                }
+                return newiGroup;
+            }
+            // Method to find the difference between two Group instances
+            difference(group2) {
+                let newdGroup = new Group();
+                for (var i = 0; i < this.elements.length; i++) {
+                    let found = false;
+                    for (var j = 0; j < group2.elements.length; j++) {
+                        if (this.elements[i] === group2.elements[j]) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        newdGroup.add(this.elements[i]);
+                    }
+                }
+                return newdGroup;
+            }
+        }
+        // Creates two instances of the Group class
+        let group1 = new Group();
+        let group2 = new Group();
+        // Manually adding elements into each Group class
+        group1.add(1);
+        group1.add(2);
+        group1.add(3);
+        document.getElementById('resultGroup1').textContent = 'a) Contents of group1: ' + group1.elements;
+
+        group2.add(2);
+        group2.add(3);
+        group2.add(5);
+        group2.add(2);
+        // The following is just to display the corresponding results to the appropriate <p> tags
+        document.getElementById('resultGroup2').textContent = 'b) Contents of group2: ' + group2.elements;
+
+        document.getElementById('resultHas5').textContent = 'c) Result of group1.has(5): ' + group1.has(5);
+        document.getElementById('resultHas3').textContent = 'd) Result of group2.has(3): ' + group2.has(3);
+
+        let unionResult = group1.union(group2);
+        document.getElementById('resultUnion').textContent = 'e) Result of group1.union(group2): ' + unionResult.elements;
+
+        let intersectionResult = group1.intersection(group2);
+        document.getElementById('resultIntersection').textContent = 'f) Result of group1.intersection(group2): ' + intersectionResult.elements;
+
+        let differenceResult = group1.difference(group2);
+        document.getElementById('resultDifference').textContent = 'g) Result of group1.difference(group2): ' + differenceResult.elements;
+
+        group1.delete(1);
+        document.getElementById('resultDelete1').textContent = 'h) Result of group1.delete(1): ' + group1.elements;
+
+        group2.delete(1);
+        document.getElementById('resultDelete2').textContent = 'i) Result of group2.delete(1): ' + group2.elements;
+    </script>
+</body>
+</html>

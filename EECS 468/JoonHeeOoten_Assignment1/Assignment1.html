@@ -1,0 +1,32 @@
+<!--
+Name: Joon Hee Ooten
+Last modified: 9/1/23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Using a common character set-->
+    <meta charset="UTF-8">
+    <!-- Setting compatiblity with internet explorer-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Adapts page to viewing device-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets title of the tab-->
+    <title>Hello World!</title>
+</head>
+<body>
+    <!-- Creates clickable buttons and editable text-->
+    <div><button onclick="showAlert()">Test 1 for Hello World!</button></div>
+    <p id="textgohere"></p>
+    <div><button onclick="changeText()">Test 2 for Hello World!</button></div>
+    <!-- JavaScript code for a function to create popup alert and another function for changing paragraph text-->
+    <script>
+        function showAlert() {
+            alert("Hello World!");
+        }
+        function changeText() {
+            document.getElementById("textgohere").innerHTML = "Hello<br><br>World!";
+        }
+    </script>
+</body>
+</html>

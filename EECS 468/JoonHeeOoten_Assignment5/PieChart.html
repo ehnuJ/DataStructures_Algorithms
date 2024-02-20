@@ -1,0 +1,111 @@
+<!--
+Name: Joon Hee Ooten
+Last modified: 10/18/23
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+</head>
+<body>
+    <canvas id="canvas1" width="500" height="500"></canvas>
+    <canvas id="canvas2" width="500" height="500"></canvas>
+    <!--creates two canvases-->
+    <script>
+      const results1 = [
+      {name: "Satisfied", count: 927, color: "lightpink"},
+      {name: "Neutral", count: 213, color: "lavender"},
+      {name: "Unsatisfied", count: 463, color: "skyblue"},
+      {name: "No comment", count: 510, color: "magenta"}
+      ];
+      //input datasets
+      //results of the first given data set
+
+      const results2 = [
+      {name: "Very happy", count: 104, color: "aquamarine"},
+      {name: "Happy", count: 63, color: "limegreen"},
+      {name: "Neutral", count: 87, color: "yellow"},
+      {name: "Unhappy", count: 51, color: "red"},
+      {name: "Very unhappy", count: 26, color: "orange"},
+      {name: "No comment", count: 18, color: "blue"}
+      ];
+      //results of the second given data set
+
+      function pieChart(results) {
+      //taking dataset as parametre
+        if (results == results1) {
+        //if the results given are the first set of results
+        var cx = document.getElementById("canvas1").getContext("2d");
+        //the canvas for the first pie chart is used
+        } 
+        else {
+        //otherwise
+        var cx = document.getElementById("canvas2").getContext("2d");
+        //the canvas for the second pie chart is used
+        
+        }
+        
+        let total = results.reduce(function(sum, choice) {
+        //calculate results for each pie chart
+          return sum + choice.count;
+          //return the results of said calculation
+        }, 0);
+
+        let currentAngle = -0.5 * Math.PI;
+        //setting current angle
+        let centerX = 300, centerY = 150;
+        //setting centre value
+
+        //for each data point, the pie slice is drawn
+        results.forEach(function(result) {
+          //calculates the angle of the slice
+          let sliceAngle = (result.count / total) * 2 * Math.PI;
+          //begins drawing the slice
+          cx.beginPath();
+          //draws the arc of the slice
+          cx.arc(centerX, centerY, 100,
+                currentAngle, currentAngle + sliceAngle);
+          //sets the middle angle and text locations
+          let middleAngle = currentAngle + 0.5 * sliceAngle;
+          let textX = Math.cos(middleAngle) * 120 + centerX;
+          let textY = Math.sin(middleAngle) * 120 + centerY;
+          //determines where the text will be placed
+          cx.textBaseLine = "middle";
+          //assigns the base text line as the middle
+          if (Math.cos(middleAngle) > 0) {
+          //if cosine of the middle angle is greater than zero
+            cx.textAlign = "left";
+            //text is aligned to the right
+          } else {
+          //if cosine of the angle is less than zero
+            cx.textAlign = "right";
+            //text is aligned to the right
+          }
+          
+          cx.font = "15px sans-serif";
+          //setting font of text
+          cx.fillStyle = "black";
+          //setting colour of text
+          cx.fillText(result.name, textX, textY);
+          //moves to the angle of the next slice
+          currentAngle += sliceAngle;
+          cx.lineTo(centerX, centerY);
+          //moving to angle of next part of pie chart
+          cx.fillStyle = result.color;
+          //setting the fill to assigned colour
+          cx.fill();
+          //fill pie chart slice
+        });
+      }    
+      pieChart(results1);
+      //calling function to draw pie chart 1 with the given results
+      pieChart(results2);
+      //calling function to draw pie chart 2 with the given results
+    
+    </script>
+</body>
+</html>

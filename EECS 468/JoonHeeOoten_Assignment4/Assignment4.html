@@ -1,0 +1,80 @@
+<!--
+Name: Joon Hee Ooten
+Last modified: 10/2/23
+-->
+<!doctype html> 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ooten's Jayhawk Page</title>
+  </head>
+
+  <body>
+    <h1>Ooten's Jayhawk Page</h1>
+    <tab-panel>
+      <div data-tabname="Rock">Rock...</div>
+      <div data-tabname="Chalk">Rock Chalk...</div>
+      <div data-tabname="Jayhawk">Rock Chalk Jayhawk - Go KU!</div>
+    </tab-panel>
+    <script>
+      function asTabs(node) {
+        var tabs = [];
+        //the variable tabs is assigned to an empty tab
+        
+        for (var i = 0; i < node.childNodes.length; i++) {
+        //for all child notes in node
+          var child = node.childNodes[i];
+          //the variable child is assigned to the child nodes of node
+          if (child.nodeType == document.ELEMENT_NODE)
+          //if the child node's type matches ELEMENT_NODE
+            tabs.push(child);
+            //push the child node into tabs
+        }
+
+        var tabList = document.createElement("div");
+        //creating the div elements for tablist
+        tabList.setAttribute("id", "tabList");
+        //setting the attributes for tablist
+
+        tabs.forEach(function(tab, i) {
+          var button = document.createElement("button");
+          //create button
+          button.textContent = tab.getAttribute("data-tabname");
+          //giving button a name that was assigned earlier in tab-panel in data-tabname
+          button.addEventListener("click", function() { selectTab(i); });
+          //adds an event so that when you click the tab, it selects the tab you click
+          tabList.appendChild(button);
+          //appending a button to the tablist child node
+        });
+        node.insertBefore(tabList, node.firstChild);
+        //inseting the tab list and the first child into the parent node
+
+        function selectTab(n) {
+        //function for tab selection
+          tabs.forEach(function(tab, i) {
+          //for each tab
+            if (i == n)
+              tab.style.display = "";
+            //if i == n, aka the child node it is on, the info for the tab is displayed
+            else
+              tab.style.display = "none";
+            //if not, there is nothing in the tab display
+          });
+          for (var i = 0; i < tabList.childNodes.length; i++) {
+          //iterating through all child nodes of tablist
+            if (i == n)
+              tabList.childNodes[i].style.background = "red";
+            //if i = n aka the child node that you selected, the tab turns red
+            else
+              tabList.childNodes[i].style.background = "blue";
+            //if not, the tab is blue
+          }
+        }
+        selectTab(0);
+        //specifies start tab as tab 1 aka "Rock"
+      }
+      asTabs(document.querySelector("tab-panel"));
+      //the tab selection on the page come from the tabs in the tab panel aka "Rock" "Chalk" "Jayhawk"
+    </script>
+  </body>
+</html>

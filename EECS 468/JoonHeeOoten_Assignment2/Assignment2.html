@@ -1,0 +1,97 @@
+<!--
+Name: Joon Hee Ooten
+Last modified: 9/11/23
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2</title>
+</head>
+<body>
+    <h1>Exercise 2.1: Looping a Triangle</h1>
+    <div id="e1Output"></div>
+    
+    <h1>Exercise 2.2: Fizzbuzz</h1>
+    <div id="e2Output"></div>
+
+    <h1>Exercise 2.3: n-by-n Grid</h1>
+    <div id="e3Output"></div>
+
+    <script>
+        // Function to display output in specified element
+        function displayOutput(elementId, output) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = output;
+        }
+        // Exercise 2.1: Looping a Triangle
+        function exercise2_1() {
+            let result = "\n";
+            for (let line = "x"; line.length < 11; line += "x") {
+                result += line + "<br>";
+            }
+            return result;
+        }
+        // Displays Exercise 2.1 output
+        displayOutput("e1Output", exercise2_1());
+        // Exercise 2.2: Fizzbuzz
+        function numberExceptions() {
+            const outcome = [];
+            for (let i = 1; i <= 100; i++) {
+                let result = i;
+                if (i % 4 == 0 && i % 7 == 0) {
+                    result = "Divisible by 4 and 7";
+                } else if (i % 4 == 0) {
+                    result = "Divisible by 4";
+                } else if (i % 7 == 0) {
+                    result = "Divisible by 7 but not by 4";
+                }
+                outcome.push(result);
+            }
+            return outcome;
+        }
+        // Exercise 2.2 output
+        function exercise2_2() {
+            return numberExceptions().join("<br>");
+        }
+        // Displays Exercise 2.2 output
+        displayOutput("e2Output", exercise2_2());
+
+        // Grid sizes 
+        var size = 8;
+        var size2 = 14;
+        // Function to generate n-by-n grid
+        function grid(gridSize) {
+            const outcome = [];
+            for (var i = 0; i < gridSize; i++) {
+                var drawGrid = " ";
+                for (var y = 0; y < gridSize; y++) {
+                    if (i % 2) {
+                        if (y % 2) {
+                            drawGrid = drawGrid + " ";
+                        } else {
+                            drawGrid = drawGrid + "*";
+                        }
+                    } else {
+                        if (y % 2) {
+                            drawGrid = drawGrid + "*";
+                        } else {
+                            drawGrid = drawGrid + " ";
+                        }
+                    }
+                }
+                outcome.push(drawGrid);
+            }
+            return "<pre>" + outcome.join("<br>") + "</pre>";
+        }
+        // Exercise 2.3 output
+        function exercise2_3(size) {
+            return "<br>size = 8<br>" + grid(size) + "<br><br>size = 14<br>" + grid(size2);
+        }
+        // Displays Exercise 2.3 output
+        displayOutput("e3Output", exercise2_3(size));
+    </script>
+</body>
+</html>
